@@ -15,13 +15,13 @@
  html, body {
    font-family: 'Nunito', sans-serif;
    background: var(--bg);
-   height: 100vh; overflow: hidden;
+   height: 100dvh; overflow: hidden;
  }
  .page {
-   height: 100vh;
+   height: 100dvh;
    display: flex;
    flex-direction: column;
-   padding: 8px 12px;
+   padding: 4px 10px 2px;
  }
  header {
    text-align: center;
@@ -44,7 +44,8 @@
    display: grid;
    grid-template-columns: repeat(4, 1fr);
    grid-template-rows: repeat(2, 1fr);
-   gap: 8px;
+   gap: 6px;
+   min-height: 0;
  }
  .card {
    background: var(--white);
@@ -54,9 +55,9 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   justify-content: center;
+   justify-content: flex-start;
    gap: 1px;
-   padding: 4px;
+   padding: 6px 4px 4px;
    text-decoration: none;
    color: inherit;
    overflow: hidden;
@@ -143,10 +144,9 @@
  ];
  const grid = document.getElementById('grid');
  // Calculate QR size based on available card height
- const vh = window.innerHeight;
- const headerH = 30, footerH = 20, gaps = 8;
- const rowH = (vh - headerH - footerH - 16 - gaps) / 2;
- const qrSize = Math.min(Math.floor(rowH * 0.52), 150);
+ const vh = document.documentElement.clientHeight;
+ const rowH = (vh - 40) / 2;
+ const qrSize = Math.min(Math.floor(rowH * 0.55), 160);
 
  apps.forEach((app,i) => {
    const c = colors[i % colors.length];
