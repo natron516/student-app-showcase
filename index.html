@@ -233,7 +233,7 @@
    { name: "Hobbit Journey Quest", url: "https://hobbit-journey-quest.replit.app",          emoji: "🧙", id: "hobbit-journey",   credit: "Azalea Martinez" },
    { name: "Galaxy Shoot Out",     url: "https://galaxy-shoot-out.replit.app",              emoji: "🚀", id: "galaxy-shootout",  credit: "Mike Hier" },
    { name: "Sunny Styles for Moms",url: "https://sunnystylesformoms.replit.app",            emoji: "☀️", id: "sunny-styles",     credit: "Clara Williams & Christine Kirk" },
-   { name: "Bible Bricks",         url: "https://biblebricks-production.up.railway.app/",   emoji: "🧱", id: "bible-bricks",     credit: "Whole Class" },
+   { name: "Bible Bricks",         url: "https://biblebricks-production.up.railway.app/",   emoji: "🧱", id: "bible-bricks",     credit: "Whole Class", noCount: true },
  ];
 
  const grid = document.getElementById('grid');
@@ -249,7 +249,7 @@
      <div class="card-icon">${app.emoji}</div>
      <div class="card-name">${app.name}</div>
      <div class="card-credit">${app.credit}</div>
-     <div class="click-count">👆 <span class="count-num" id="${countId}">—</span></div>
+     ${app.noCount ? '' : `<div class="click-count">👆 <span class="count-num" id="${countId}">—</span></div>`}
      <div class="qr-wrapper" id="${qrId}"></div>
      <a class="visit-btn" href="${app.url}" target="_blank" rel="noopener" data-app-id="${app.id}">
        🔗 ${shortUrl.length > 25 ? shortUrl.substring(0,25)+'…' : shortUrl}
@@ -265,10 +265,12 @@
      });
    }, 50);
 
-   db.collection('app-clicks').doc(app.id).onSnapshot(doc => {
-     const el = document.getElementById(countId);
-     el.textContent = doc.exists ? (doc.data().clicks || 0) : '0';
-   });
+   if (!app.noCount) {
+     db.collection('app-clicks').doc(app.id).onSnapshot(doc => {
+       const el = document.getElementById(countId);
+       if (el) el.textContent = doc.exists ? (doc.data().clicks || 0) : '0';
+     });
+   }
  });
 
  document.addEventListener('click', e => {
