@@ -103,20 +103,20 @@
    box-shadow: 6px 7px 0px var(--dark);
  }
  .card-icon {
-   width: 34px; height: 34px;
+   width: 42px; height: 42px;
    border-radius: 10px;
    background: var(--accent);
    border: 2.5px solid var(--dark);
    display: flex; align-items: center; justify-content: center;
-   font-size: 1.1rem; flex-shrink: 0;
+   font-size: 1.4rem; flex-shrink: 0;
  }
  .card-name {
    font-family: 'Fredoka One', cursive;
-   font-size: 0.8rem; color: var(--dark);
+   font-size: 1rem; color: var(--dark);
    text-align: center; line-height: 1.1;
  }
  .card-credit {
-   font-size: 0.6rem; color: #888;
+   font-size: 0.7rem; color: #888;
    font-weight: 700; font-style: italic;
    text-align: center; line-height: 1.15;
  }
@@ -126,11 +126,11 @@
    border: 1.5px solid var(--dark);
    border-radius: 100px;
    padding: 2px 8px;
-   font-weight: 800; font-size: 0.65rem; color: var(--dark);
+   font-weight: 800; font-size: 0.75rem; color: var(--dark);
  }
  .click-count .count-num {
    font-family: 'Fredoka One', cursive;
-   font-size: 0.8rem; color: var(--accent);
+   font-size: 0.95rem; color: var(--accent);
    min-width: 14px; text-align: center;
  }
  .qr-wrapper {
@@ -146,8 +146,8 @@
    display: inline-flex; align-items: center; gap: 4px;
    background: var(--accent); color: var(--dark);
    font-family: 'Nunito', sans-serif;
-   font-weight: 800; font-size: 0.6rem;
-   padding: 4px 10px; border-radius: 100px;
+   font-weight: 800; font-size: 0.72rem;
+   padding: 5px 12px; border-radius: 100px;
    border: 2px solid var(--dark);
    text-decoration: none;
    transition: transform 0.12s ease;
@@ -179,9 +179,9 @@
      grid-template-rows: repeat(3, 1fr);
    }
    h1 { font-size: 1.6rem; }
-   .card { padding: 10px 8px; gap: 4px; }
-   .card-icon { width: 36px; height: 36px; font-size: 1.1rem; }
-   .card-name { font-size: 0.75rem; }
+   .card { padding: 10px 8px; gap: 5px; }
+   .card-icon { width: 42px; height: 42px; font-size: 1.4rem; }
+   .card-name { font-size: 0.95rem; }
  }
 
  /* Phone */
@@ -234,7 +234,7 @@
  ];
 
  const grid = document.getElementById('grid');
- const qrSize = window.innerWidth < 820 ? 70 : 90;
+ const qrSize = window.innerWidth < 820 ? 85 : 110;
 
  apps.forEach((app, i) => {
    const qrId = `qr-${i}`;
