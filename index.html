@@ -115,6 +115,11 @@
    font-size: 0.8rem; color: var(--dark);
    text-align: center; line-height: 1.1;
  }
+ .card-credit {
+   font-size: 0.6rem; color: #888;
+   font-weight: 700; font-style: italic;
+   text-align: center; line-height: 1.15;
+ }
  .click-count {
    display: inline-flex; align-items: center; gap: 3px;
    background: var(--bg);
@@ -218,13 +223,13 @@
  const db = firebase.firestore();
 
  const apps = [
-   { name: "Feather Frenzy",      url: "https://FEATHER-FRENZY.replit.app",               emoji: "🐦", id: "feather-frenzy" },
-   { name: "Pretzel Rush",         url: "https://pretzel-rush.replit.app",                  emoji: "🥨", id: "pretzel-rush" },
-   { name: "The Recipe Finder",    url: "https://The-Recipe-Finder.replit.app",             emoji: "🍳", id: "recipe-finder" },
-   { name: "Hobbit Journey Quest", url: "https://hobbit-journey-quest.replit.app",          emoji: "🧙", id: "hobbit-journey" },
-   { name: "Galaxy Shoot Out",     url: "https://galaxy-shoot-out.replit.app",              emoji: "🚀", id: "galaxy-shootout" },
-   { name: "Sunny Styles for Moms",url: "https://sunnystylesformoms.replit.app",            emoji: "☀️", id: "sunny-styles" },
-   { name: "Bible Bricks",         url: "https://biblebricks-production.up.railway.app/",   emoji: "🧱", id: "bible-bricks" },
+   { name: "Feather Frenzy",      url: "https://FEATHER-FRENZY.replit.app",               emoji: "🐦", id: "feather-frenzy",  credit: "Johnny Hier & Donald O'Connor" },
+   { name: "Pretzel Rush",         url: "https://pretzel-rush.replit.app",                  emoji: "🥨", id: "pretzel-rush",     credit: "Jordan Hier" },
+   { name: "The Recipe Finder",    url: "https://The-Recipe-Finder.replit.app",             emoji: "🍳", id: "recipe-finder",    credit: "Violet Hicks & Bonnie Martinez" },
+   { name: "Hobbit Journey Quest", url: "https://hobbit-journey-quest.replit.app",          emoji: "🧙", id: "hobbit-journey",   credit: "Azalea Martinez" },
+   { name: "Galaxy Shoot Out",     url: "https://galaxy-shoot-out.replit.app",              emoji: "🚀", id: "galaxy-shootout",  credit: "Mike Hier" },
+   { name: "Sunny Styles for Moms",url: "https://sunnystylesformoms.replit.app",            emoji: "☀️", id: "sunny-styles",     credit: "Clara Williams & Christine Kirk" },
+   { name: "Bible Bricks",         url: "https://biblebricks-production.up.railway.app/",   emoji: "🧱", id: "bible-bricks",     credit: "Whole Class" },
  ];
 
  const grid = document.getElementById('grid');
@@ -239,6 +244,7 @@
    card.innerHTML = `
      <div class="card-icon">${app.emoji}</div>
      <div class="card-name">${app.name}</div>
+     <div class="card-credit">${app.credit}</div>
      <div class="click-count">👆 <span class="count-num" id="${countId}">—</span></div>
      <div class="qr-wrapper" id="${qrId}"></div>
      <a class="visit-btn" href="${app.url}" target="_blank" rel="noopener" data-app-id="${app.id}">
