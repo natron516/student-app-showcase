@@ -55,10 +55,7 @@
    transition:transform 0.15s, box-shadow 0.15s;
  }
  .card:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--dark); }
- /* 7th card spans 2 columns and is centered in the second row */
- .card:last-child {
-   grid-column: 2 / 4;
- }
+ /* With 8 cards, 4x2 grid fills perfectly — no special rules needed */
  .card-name {
    font-family:'Fredoka One',cursive;
    font-size:0.9rem; color:var(--dark);
@@ -123,6 +120,7 @@ const apps = [
   {name:"Galaxy Shoot Out",    url:"https://galaxy-shoot-out.replit.app",            emoji:"🚀", id:"galaxy-shootout", credit:"Mike Hier"},
   {name:"Sunny Styles for Moms",url:"https://sunnystylesformoms.replit.app",         emoji:"☀️", id:"sunny-styles",    credit:"Clara Williams & Christine Kirk"},
   {name:"Bible Bricks",        url:"https://biblebricks-production.up.railway.app/", emoji:"🧱", id:"bible-bricks",    credit:"Whole Class", noCount:true},
+  {name:"Orchard House Adventures", url:"https://orchard-house-adventures.replit.app",   emoji:"🍎", id:"orchard-house",   credit:"Julie Williams & Julia Jordan"},
 ];
 
 const grid = document.getElementById('grid');
