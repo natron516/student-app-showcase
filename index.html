@@ -1,278 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>6th & 7th Grade App Showcase</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <style>
-    :root {
-      --bg: #fff9f0;
-      --card1: #ff6b6b;
-      --card2: #ffd93d;
-      --card3: #6bcb77;
-      --card4: #4d96ff;
-      --dark: #1a1a2e;
-      --white: #ffffff;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* Confetti dots background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(circle, #ff6b6b44 2px, transparent 2px),
-        radial-gradient(circle, #4d96ff44 2px, transparent 2px),
-        radial-gradient(circle, #ffd93d44 2px, transparent 2px),
-        radial-gradient(circle, #6bcb7744 2px, transparent 2px);
-      background-size: 60px 60px, 80px 80px, 50px 50px, 70px 70px;
-      background-position: 0 0, 30px 30px, 15px 45px, 45px 15px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    header {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 60px 20px 40px;
-    }
-
-    .star-badge {
-      display: inline-block;
-      background: var(--dark);
-      color: var(--white);
-      font-family: 'Nunito', sans-serif;
-      font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 8px 20px;
-      border-radius: 100px;
-      margin-bottom: 20px;
-      animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-    }
-
-    h1 {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      color: var(--dark);
-      line-height: 1.05;
-      animation: slideUp 0.6s ease both 0.1s;
-    }
-
-    h1 span {
-      display: inline-block;
-      position: relative;
-    }
-
-    h1 span::after {
-      content: '';
-      position: absolute;
-      bottom: 4px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: var(--card2);
-      border-radius: 4px;
-      z-index: -1;
-    }
-
-    .subtitle {
-      margin-top: 14px;
-      font-size: 1.15rem;
-      color: #555;
-      font-weight: 600;
-      animation: slideUp 0.6s ease both 0.2s;
-    }
-
-    .grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 20px 24px 80px;
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: 24px;
-      padding: 32px 28px;
-      border: 3px solid var(--dark);
-      box-shadow: 6px 6px 0px var(--dark);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      animation: cardIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .card:nth-child(1) { animation-delay: 0.15s; --accent: var(--card1); }
-    .card:nth-child(2) { animation-delay: 0.25s; --accent: var(--card2); }
-    .card:nth-child(3) { animation-delay: 0.35s; --accent: var(--card3); }
-    .card:nth-child(4) { animation-delay: 0.45s; --accent: var(--card4); }
-
-    .card:hover {
-      transform: translate(-3px, -4px);
-      box-shadow: 9px 10px 0px var(--dark);
-    }
-
-    .card-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      background: var(--accent);
-      border: 3px solid var(--dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-
-    .card-name {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1.5rem;
-      color: var(--dark);
-      text-align: center;
-      line-height: 1.2;
-    }
-
-    .qr-wrapper {
-      background: #fff;
-      border: 3px solid var(--dark);
-      border-radius: 16px;
-      padding: 10px;
-      box-shadow: 3px 3px 0 var(--accent);
-    }
-
-    .qr-wrapper canvas,
-    .qr-wrapper img {
-      display: block;
-      border-radius: 8px;
-    }
-
-    .visit-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: var(--dark);
-      font-family: 'Nunito', sans-serif;
-      font-weight: 800;
-      font-size: 0.95rem;
-      padding: 10px 22px;
-      border-radius: 100px;
-      border: 2.5px solid var(--dark);
-      text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 3px 3px 0 var(--dark);
-      word-break: break-all;
-      text-align: center;
-    }
-
-    .visit-btn:hover {
-      transform: translate(-1px, -2px);
-      box-shadow: 4px 5px 0 var(--dark);
-    }
-
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 0 20px 40px;
-      font-size: 0.9rem;
-      color: #888;
-      font-weight: 600;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.5); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes cardIn {
-      from { transform: translateY(30px) scale(0.95); opacity: 0; }
-      to { transform: translateY(0) scale(1); opacity: 1; }
-    }
-  </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>6th & 7th Grade App Showcase</title>
+ <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+ <style>
+ :root {
+   --bg: #fff9f0;
+   --card1: #ff6b6b;
+   --card2: #ffd93d;
+   --card3: #6bcb77;
+   --card4: #4d96ff;
+   --card5: #a855f7;
+   --dark: #1a1a2e;
+   --white: #ffffff;
+ }
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ body {
+   font-family: 'Nunito', sans-serif;
+   background: var(--bg);
+   min-height: 100vh;
+   overflow-x: hidden;
+ }
+ body::before {
+   content: '';
+   position: fixed;
+   inset: 0;
+   background-image:
+     radial-gradient(circle, #ff6b6b44 2px, transparent 2px),
+     radial-gradient(circle, #4d96ff44 2px, transparent 2px),
+     radial-gradient(circle, #ffd93d44 2px, transparent 2px),
+     radial-gradient(circle, #6bcb7744 2px, transparent 2px);
+   background-size: 60px 60px, 80px 80px, 50px 50px, 70px 70px;
+   background-position: 0 0, 30px 30px, 15px 45px, 45px 15px;
+   pointer-events: none;
+   z-index: 0;
+ }
+ header {
+   position: relative;
+   z-index: 1;
+   text-align: center;
+   padding: 60px 20px 40px;
+ }
+ .star-badge {
+   display: inline-block;
+   background: var(--dark);
+   color: var(--white);
+   font-family: 'Nunito', sans-serif;
+   font-weight: 800;
+   font-size: 0.85rem;
+   letter-spacing: 0.15em;
+   text-transform: uppercase;
+   padding: 8px 20px;
+   border-radius: 100px;
+   margin-bottom: 20px;
+   animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+ }
+ h1 {
+   font-family: 'Fredoka One', cursive;
+   font-size: clamp(2.8rem, 7vw, 5rem);
+   color: var(--dark);
+   line-height: 1.05;
+   animation: slideUp 0.6s ease both 0.1s;
+ }
+ h1 span { display: inline-block; position: relative; }
+ h1 span::after {
+   content: '';
+   position: absolute;
+   bottom: 4px; left: 0; right: 0;
+   height: 8px;
+   background: var(--card2);
+   border-radius: 4px;
+   z-index: -1;
+ }
+ .subtitle {
+   margin-top: 14px;
+   font-size: 1.15rem;
+   color: #555;
+   font-weight: 600;
+   animation: slideUp 0.6s ease both 0.2s;
+ }
+ .grid {
+   position: relative;
+   z-index: 1;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 28px;
+   max-width: 1100px;
+   margin: 0 auto;
+   padding: 20px 24px 80px;
+ }
+ .card {
+   background: var(--white);
+   border-radius: 24px;
+   padding: 32px 28px;
+   border: 3px solid var(--dark);
+   box-shadow: 6px 6px 0px var(--dark);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 18px;
+   transition: transform 0.18s ease, box-shadow 0.18s ease;
+   animation: cardIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+   cursor: pointer;
+   text-decoration: none;
+   color: inherit;
+ }
+ .card:nth-child(1) { animation-delay: 0.15s; --accent: var(--card1); }
+ .card:nth-child(2) { animation-delay: 0.25s; --accent: var(--card2); }
+ .card:nth-child(3) { animation-delay: 0.35s; --accent: var(--card3); }
+ .card:nth-child(4) { animation-delay: 0.45s; --accent: var(--card4); }
+ .card:nth-child(5) { animation-delay: 0.55s; --accent: var(--card5); }
+ .card:hover {
+   transform: translate(-3px, -4px);
+   box-shadow: 9px 10px 0px var(--dark);
+ }
+ .card-icon {
+   width: 64px;
+   height: 64px;
+   border-radius: 16px;
+   background: var(--accent);
+   border: 3px solid var(--dark);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 2rem;
+   flex-shrink: 0;
+ }
+ .card-name {
+   font-family: 'Fredoka One', cursive;
+   font-size: 1.5rem;
+   color: var(--dark);
+   text-align: center;
+   line-height: 1.2;
+ }
+ .click-count {
+   display: inline-flex;
+   align-items: center;
+   gap: 6px;
+   background: var(--bg);
+   border: 2px solid var(--dark);
+   border-radius: 100px;
+   padding: 4px 14px;
+   font-weight: 800;
+   font-size: 0.85rem;
+   color: var(--dark);
+ }
+ .click-count .count-num {
+   font-family: 'Fredoka One', cursive;
+   font-size: 1.1rem;
+   color: var(--accent);
+   min-width: 20px;
+   text-align: center;
+ }
+ .qr-wrapper {
+   background: #fff;
+   border: 3px solid var(--dark);
+   border-radius: 16px;
+   padding: 10px;
+   box-shadow: 3px 3px 0 var(--accent);
+ }
+ .qr-wrapper canvas, .qr-wrapper img { display: block; border-radius: 8px; }
+ .visit-btn {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   background: var(--accent);
+   color: var(--dark);
+   font-family: 'Nunito', sans-serif;
+   font-weight: 800;
+   font-size: 0.95rem;
+   padding: 10px 22px;
+   border-radius: 100px;
+   border: 2.5px solid var(--dark);
+   text-decoration: none;
+   transition: transform 0.15s ease, box-shadow 0.15s ease;
+   box-shadow: 3px 3px 0 var(--dark);
+   word-break: break-all;
+   text-align: center;
+ }
+ .visit-btn:hover {
+   transform: translate(-1px, -2px);
+   box-shadow: 4px 5px 0 var(--dark);
+ }
+ footer {
+   position: relative;
+   z-index: 1;
+   text-align: center;
+   padding: 0 20px 40px;
+   font-size: 0.9rem;
+   color: #888;
+   font-weight: 600;
+ }
+ @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+ @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+ @keyframes cardIn { from { transform: translateY(30px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+ @keyframes countPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+ .count-pop { animation: countPop 0.3s ease; }
+ </style>
 </head>
 <body>
 
-  <header>
-    <div class="star-badge">⭐ Student Made ⭐</div>
-    <h1>6th & 7th Grade<br><span>App Showcase</span></h1>
-    <p class="subtitle">Scan a QR code or tap a link to try each app!</p>
-  </header>
+ <header>
+   <div class="star-badge">⭐ Student Made ⭐</div>
+   <h1>6th & 7th Grade<br><span>App Showcase</span></h1>
+   <p class="subtitle">Scan a QR code or tap a link to try each app!</p>
+ </header>
 
-  <div class="grid" id="grid"></div>
+ <div class="grid" id="grid"></div>
 
-  <footer>Made with 💛 by incredible young developers</footer>
+ <footer>Made with 💛 by incredible young developers</footer>
 
-  <script>
-    const apps = [
-      { name: "Feather Frenzy",      url: "https://FEATHER-FRENZY.replit.app",    emoji: "🐦" },
-      { name: "Pretzel Rush",         url: "https://pretzel-rush.replit.app",       emoji: "🥨" },
-      { name: "The Recipe Finder",    url: "https://The-Recipe-Finder.replit.app",  emoji: "🍳" },
-      { name: "Hobbit Journey Quest", url: "https://hobbit-journey-quest.replit.app",emoji: "🧙" },
-      { name: "Galaxy Shoot Out",     url: "https://galaxy-shoot-out.replit.app",   emoji: "🚀" },
-    ];
+ <!-- Firebase -->
+ <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+ <script>
+ firebase.initializeApp({
+   apiKey: "AIzaSyA5qnahNEDXEo4CvDZi7PIqcKGfga0Oqn4",
+   authDomain: "mrswilliamsmath-1d6de.firebaseapp.com",
+   projectId: "mrswilliamsmath-1d6de",
+   storageBucket: "mrswilliamsmath-1d6de.firebasestorage.app",
+   messagingSenderId: "370339384366",
+   appId: "1:370339384366:web:e2e5abfd8263b84db223bf"
+ });
+ const db = firebase.firestore();
 
-    const grid = document.getElementById('grid');
+ const apps = [
+   { name: "Feather Frenzy",      url: "https://FEATHER-FRENZY.replit.app",      emoji: "🐦", id: "feather-frenzy" },
+   { name: "Pretzel Rush",         url: "https://pretzel-rush.replit.app",         emoji: "🥨", id: "pretzel-rush" },
+   { name: "The Recipe Finder",    url: "https://The-Recipe-Finder.replit.app",    emoji: "🍳", id: "recipe-finder" },
+   { name: "Hobbit Journey Quest", url: "https://hobbit-journey-quest.replit.app", emoji: "🧙", id: "hobbit-journey" },
+   { name: "Galaxy Shoot Out",     url: "https://galaxy-shoot-out.replit.app",     emoji: "🚀", id: "galaxy-shootout" },
+ ];
 
-    apps.forEach((app, i) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.style.setProperty('--idx', i);
+ const grid = document.getElementById('grid');
 
-      const qrId = `qr-${i}`;
+ apps.forEach((app, i) => {
+   const qrId = `qr-${i}`;
+   const countId = `count-${i}`;
 
-      card.innerHTML = `
-        <div class="card-icon">${app.emoji}</div>
-        <div class="card-name">${app.name}</div>
-        <div class="qr-wrapper" id="${qrId}"></div>
-        <a class="visit-btn" href="${app.url}" target="_blank" rel="noopener">
-          🔗 ${app.url.replace('https://', '')}
-        </a>
-      `;
+   const card = document.createElement('div');
+   card.className = 'card';
 
-      grid.appendChild(card);
+   card.innerHTML = `
+     <div class="card-icon">${app.emoji}</div>
+     <div class="card-name">${app.name}</div>
+     <div class="click-count">👆 <span class="count-num" id="${countId}">—</span> visits</div>
+     <div class="qr-wrapper" id="${qrId}"></div>
+     <a class="visit-btn" href="${app.url}" target="_blank" rel="noopener" data-app-id="${app.id}">
+       🔗 ${app.url.replace('https://', '')}
+     </a>
+   `;
 
-      // Generate QR code after inserting into DOM
-      setTimeout(() => {
-        new QRCode(document.getElementById(qrId), {
-          text: app.url,
-          width: 160,
-          height: 160,
-          colorDark: "#1a1a2e",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      }, 50);
-    });
-  </script>
+   grid.appendChild(card);
+
+   setTimeout(() => {
+     new QRCode(document.getElementById(qrId), {
+       text: app.url,
+       width: 160,
+       height: 160,
+       colorDark: "#1a1a2e",
+       colorLight: "#ffffff",
+       correctLevel: QRCode.CorrectLevel.M
+     });
+   }, 50);
+
+   // Load current count
+   const docRef = db.collection('app-clicks').doc(app.id);
+   docRef.onSnapshot(doc => {
+     const el = document.getElementById(countId);
+     if (doc.exists) {
+       el.textContent = doc.data().clicks || 0;
+     } else {
+       el.textContent = '0';
+     }
+   });
+ });
+
+ // Track clicks on visit buttons
+ document.addEventListener('click', e => {
+   const btn = e.target.closest('.visit-btn');
+   if (!btn) return;
+   const appId = btn.dataset.appId;
+   if (!appId) return;
+
+   const docRef = db.collection('app-clicks').doc(appId);
+   docRef.set(
+     { clicks: firebase.firestore.FieldValue.increment(1), lastClicked: new Date().toISOString() },
+     { merge: true }
+   );
+
+   // Pop animation on the count
+   const card = btn.closest('.card');
+   const countEl = card.querySelector('.count-num');
+   countEl.classList.remove('count-pop');
+   void countEl.offsetWidth;
+   countEl.classList.add('count-pop');
+ });
+ </script>
 </body>
 </html>
